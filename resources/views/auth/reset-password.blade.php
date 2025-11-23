@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="card w-96 bg-base-100 shadow mx-auto mt-6">
-        <div class="card-body">
+        <div class="card-body text-base-content">
             <h2 class="text-xl font-bold mb-2">@lang('Reset Password')</h2>
             <form method="POST" action="{{ route('password.store') }}" class="space-y-3">
                 @csrf
