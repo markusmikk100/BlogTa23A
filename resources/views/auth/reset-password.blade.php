@@ -1,29 +1,95 @@
-<x-guest-layout>
-    <div class="card w-96 bg-base-100 shadow mx-auto mt-6">
-        <div class="card-body text-base-content">
-            <h2 class="text-xl font-bold mb-2">@lang('Reset Password')</h2>
-            <form method="POST" action="{{ route('password.store') }}" class="space-y-3">
-                @csrf
-                <input type="hidden" name="token" value="{{ $request->route('token') }}">
-                <div class="form-control">
-                    <label class="label" for="email"><span class="label-text">@lang('Email')</span></label>
-                    <input id="email" type="email" name="email" class="input input-bordered" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username" />
-                    @error('email')<p class="text-error text-sm mt-1">{{ $message }}</p>@enderror
+@extends('partials.layout')
+@section('title', 'Reset Password')
+
+@section('content')
+
+<div class="card w-96 bg-base-100 shadow-xl mx-auto mt-6">
+    <div class="card-body p-8 space-y-6">
+
+        <form method="POST" action="{{ route('password.store') }}" class="space-y-6">
+            @csrf
+
+            {{-- Hidden token --}}
+            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+            {{-- Email --}}
+            <label class="form-control w-full space-y-2">
+                <div class="label">
+                    <span class="label-text text-base">{{ __('Email') }}</span>
                 </div>
-                <div class="form-control">
-                    <label class="label" for="password"><span class="label-text">@lang('Password')</span></label>
-                    <input id="password" type="password" name="password" class="input input-bordered" required autocomplete="new-password" />
-                    @error('password')<p class="text-error text-sm mt-1">{{ $message }}</p>@enderror
+
+                <input
+                    type="email"
+                    name="email"
+                    class="input input-bordered w-full h-12"
+                    value="{{ old('email', $request->email) }}"
+                    placeholder="{{ __('Email') }}"
+                    required
+                    autofocus
+                    autocomplete="username"
+                />
+
+                @error('email')
+                    <div class="label">
+                        <span class="label-text text-error">{{ $message }}</span>
+                    </div>
+                @enderror
+            </label>
+
+            {{-- New Password --}}
+            <label class="form-control w-full space-y-2">
+                <div class="label">
+                    <span class="label-text text-base">{{ __('Password') }}</span>
                 </div>
-                <div class="form-control">
-                    <label class="label" for="password_confirmation"><span class="label-text">@lang('Confirm Password')</span></label>
-                    <input id="password_confirmation" type="password" name="password_confirmation" class="input input-bordered" required autocomplete="new-password" />
-                    @error('password_confirmation')<p class="text-error text-sm mt-1">{{ $message }}</p>@enderror
+
+                <input
+                    type="password"
+                    name="password"
+                    class="input input-bordered w-full h-12"
+                    placeholder="{{ __('Password') }}"
+                    required
+                    autocomplete="new-password"
+                />
+
+                @error('password')
+                    <div class="label">
+                        <span class="label-text text-error">{{ $message }}</span>
+                    </div>
+                @enderror
+            </label>
+
+            {{-- Confirm Password --}}
+            <label class="form-control w-full space-y-2">
+                <div class="label">
+                    <span class="label-text text-base">{{ __('Confirm Password') }}</span>
                 </div>
-                <div class="text-right pt-2">
-                    <button class="btn btn-primary">{{ __('Reset Password') }}</button>
-                </div>
-            </form>
-        </div>
+
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    class="input input-bordered w-full h-12"
+                    placeholder="{{ __('Confirm Password') }}"
+                    required
+                    autocomplete="new-password"
+                />
+
+                @error('password_confirmation')
+                    <div class="label">
+                        <span class="label-text text-error">{{ $message }}</span>
+                    </div>
+                @enderror
+            </label>
+
+            {{-- Action --}}
+            <div class="flex justify-end pt-4">
+                <button class="btn btn-primary min-w-32">
+                    {{ __('Reset Password') }}
+                </button>
+            </div>
+
+        </form>
+
     </div>
-</x-guest-layout>
+</div>
+
+@endsection
